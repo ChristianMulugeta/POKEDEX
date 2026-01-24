@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style/assets.css" />
+    <link rel="stylesheet" href="style/fonts.css" />
+    <link rel="stylesheet" href="style/colors.css" />
+  </head>
+  <body onload="onloadFunc()">
+
+    <div id="loadingSpinner">
+      <img id="spinnerImg" src="./assets/img/load_more_img.png" alt="Loading..."></img>
+    </div>
+
+    <div class="header">
+      <div class="contentbegrenzung_header">
+        <img src="./assets/icons/pokeball.png" alt="" />
+        <span>Pokedex</span>
+        <div class="searchbar">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search Pokemon..."
+            oninput="filterAndShowPokemons(this.value)"
+          />
+          <div id="min_letters_hint">
+            min. 3 letters
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main_container">
+      <div id="pokemon_list" class="pokemon_gallerie"></div>
+      <div id="loadMoreBtn" class="load_more" onclick="loadMorebtn()">
+        <img id="loadMoreImg" src="./assets/img/load_more_img.png" alt="">
+        <p>Load more...</p>
+      </div>
+    </div>
+
+    <div id="fullImgBox" onclick="backgroundClick(event)">
+      <div class="dialog_box">
+        <img id="fullImg" alt="" />
+        <div id="dialogTypeIcons" class="dialog_box_type_icons"></div>
+        <div id="fullImgStats" class="dialog_box_stats"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>2025 Developer Akademie GmbH</span>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="scripts/db.js"></script>
+    <script src="scripts/template.js"></script>
+  </body>
+
+
+</html>
