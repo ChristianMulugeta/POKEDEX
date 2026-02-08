@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,6 +35,9 @@
 
     <div class="main_container">
       <div id="pokemon_list" class="pokemon_gallerie"></div>
+      <div id="notFoundMessage" class="not_found_message" style="display: none;">
+        Pokemon not found...
+      </div>
       <div id="loadMoreBtn" class="load_more" onclick="loadMorebtn()">
         <img id="loadMoreImg" src="./assets/img/load_more_img.png" alt="">
         <p>Load more...</p>
@@ -43,7 +46,11 @@
 
     <div id="fullImgBox" onclick="backgroundClick(event)">
       <div class="dialog_box">
+        <button class="nav_btn left" onclick="prevPokemon(event)">❮</button>
+
         <img id="fullImg" alt="" />
+
+        <button class="nav_btn right" onclick="nextPokemon(event)">❯</button>
         <div id="dialogTypeIcons" class="dialog_box_type_icons"></div>
         <div id="fullImgStats" class="dialog_box_stats"></div>
       </div>

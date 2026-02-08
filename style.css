@@ -6,6 +6,10 @@ html body {
   flex-direction: column;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 .main_container {
   background-image: url("./assets/img/background_1.png");
   background-size: cover;
@@ -43,7 +47,7 @@ html body {
 }
 
 .contentbegrenzung_header {
-  max-width: 1500px;
+  max-width: 1440px;
   width: 100%;
   margin: auto;
   display: flex;
@@ -84,18 +88,22 @@ html body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 60px;
-  max-width: 1500px;
+  max-width: 1440px;
   width: 100%;
+  /* width: min(1500px, 100%); */
   justify-content: center;
   justify-items: center;
+  box-sizing: border-box;
+  
 }
 
 .pokemon_card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 320px;
+  max-width: 270px;
   width: 100%;
+  /* box-sizing: border-box; */
 }
 
 .pokemon_card:hover {
@@ -138,6 +146,7 @@ html body {
   background: rgba(0, 0, 0, 0.9);
   z-index: 100;
   top: 0;
+  overflow: hidden;
 }
 
 #fullImg {
@@ -159,6 +168,28 @@ html body {
   width: 400px;
   height: 500px;
   background: linear-gradient(135deg, #1e3c72 20%, #cfd9df 80%);
+  position: relative;
+}
+
+.nav_btn{
+  position: absolute;
+  top: 25%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  /* background: rgba(0,0,0,0.5); */
+  /* color: white; */
+  border: none;
+  cursor: pointer;
+  padding: 0px 5px;
+  border-radius: 30%;
+}
+
+.nav_btn.left{
+  left: 10px;
+}
+
+.nav_btn.right{
+  right: 10px;
 }
 
 .dialog_box_type_icons{
@@ -224,6 +255,14 @@ html body {
   z-index: 9999;
 }
 
+.not_found_message{
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin-top: 20px;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -245,7 +284,7 @@ html body {
   }
 
   .dialog_box {
-    max-width: 300px;
+    max-width: 280px;
     max-height: 500px;
   }
 
@@ -261,6 +300,9 @@ html body {
   .stat-value {
     font-size: 16px;
   }
+
+  .nav_prev{ left: 10px; }
+  .nav_next{ right: 10px; }
 }
 
 @media (width: 4000px) {
