@@ -46,6 +46,11 @@ body.no-scroll {
   margin-left: auto;
 }
 
+.search_area {
+  display: flex;
+  flex-direction: row;
+}
+
 .contentbegrenzung_header {
   max-width: 1440px;
   width: 100%;
@@ -61,6 +66,7 @@ body.no-scroll {
   border-color: white;
   font-size: clamp(12px, 3vw, 15px);
   position: relative;
+  width: 60%;
 }
 
 .footer {
@@ -90,11 +96,10 @@ body.no-scroll {
   grid-gap: 60px;
   max-width: 1440px;
   width: 100%;
-  /* width: min(1500px, 100%); */
+  padding: 15px;
   justify-content: center;
   justify-items: center;
   box-sizing: border-box;
-  
 }
 
 .pokemon_card {
@@ -103,7 +108,6 @@ body.no-scroll {
   align-items: center;
   max-width: 270px;
   width: 100%;
-  /* box-sizing: border-box; */
 }
 
 .pokemon_card:hover {
