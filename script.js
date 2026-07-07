@@ -332,12 +332,3 @@ function showNotFound(){
 function hideNotFound(){
     document.getElementById("notFoundMessage").style.display= "none";
 }
-
-
-
-
-// leere dateien löschen  ----------------------------------------  done
-// console.log entfernen  ----------------------------------------  done
-// temlates anpassen  --------------------------------------------  done
-// horizontale scrollbar ganz rechts beim hovern entfernen -------  done
-// such btn hinzufügen  ------------------------------------------  done
