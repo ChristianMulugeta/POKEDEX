@@ -14,9 +14,12 @@ let offset = 0;
 let ALLPOKEMON = [];
 let currentPokemons = [];
 let currentPkm = 0;
+let currentPokemonDetails = null;
+let currentLanguage = "de";
 
 /*Startfunktion beim Lader der Seite (Startet das Nachladen der Pokemon)*/ 
 async function onloadFunc(){
+    initializeLanguage();
     loadData();
 }
 
@@ -46,7 +49,7 @@ async function loadData() {
 /*
 1. Holt die nächst Seite aus der PokeAPI mit limit und offset.
 2. Berechnet, wie viele noch fehlen damit nicht über 151 geladen werden.
-3. Für jedes neue Pokemon lädt es zusätzliche Typen über loadType(pokemon.url) und speichert sie in pokemon.type.
+3. Für jedes neue Pokemon lädt es Typen und übersetzte Namen und speichert diese am Pokemon.
 4. Gibt newPokemons und limitNow zurück */
 async function fetchNextPokemon() {
     let remaining = MAX_POKEMON - ALLPOKEMON.length;
@@ -57,8 +60,9 @@ async function fetchNextPokemon() {
 
     let newPokemons = data.results;
     for (let index = 0; index < newPokemons.length; index++) {
-        let types = await loadType(newPokemons[index].url);
-        newPokemons[index].type = types;
+        let pokemonData = await loadPokemonData(newPokemons[index].url);
+        newPokemons[index].type = pokemonData.types;
+        newPokemons[index].names = pokemonData.names;
     }
     return { newPokemons, limitNow};
 }
@@ -74,26 +78,53 @@ async function openFullImg(index) {
     let pokemon = currentPokemons[index];
     let response = await fetch(pokemon.url);
     let data = await response.json();
+    currentPokemonDetails = data;
     let parts = pokemon.url.split("/");
     let pokemonIndex = parts[parts.length - 2]
     fullImg.src = img_font + pokemonIndex + ".png";
+    fullImg.alt = getPokemonName(pokemon);
     let typeName = data.types[0].type.name;
     fullImg.className = "bg_" + typeName;
     renderDialogTypeIcons(data);
-    renderStats(data);    
+    renderStats(data, pokemon);
     fullImgBox.style.display = "flex";
     document.body.classList.add("no-scroll");
     hideLoadingSpinner();
 }
 
 /*
-1. Lädt die Pokemon Daten von der URL und gibt nur die Typen zurück.
-2. Gibt ein Array mit den Typen des Pokemons mit return data an responseToJson.types zurück.*/
-async function loadType(path="") {
+1. Lädt die Detaildaten eines Pokemon über die übergebene URL.
+2. Holt die übersetzten Namen über loadLocalizedNames().
+3. Gibt die Typen und Namen als Objekt zurück.*/
+async function loadPokemonData(path="") {
     let response = await fetch(path);
-    let responseToJson = await response.json();
-    let data = responseToJson.types;
-    return data;
+    let data = await response.json();
+    let names = await loadLocalizedNames(data.species.url, data.name);
+    return { types: data.types, names: names };
+}
+
+/*
+1. Erstellt für jede Sprache zuerst den englischen Namen als Ersatz.
+2. Lädt die übersetzten Pokemon-Namen über die Species-URL.
+3. Speichert nur die Namen für Deutsch, Englisch, Französisch und Italienisch.
+4. Wenn das Laden fehlschlägt, bleiben die englischen Ersatznamen erhalten.*/
+async function loadLocalizedNames(speciesUrl, fallbackName) {
+    let names = { de: fallbackName, en: fallbackName, fr: fallbackName, it: fallbackName };
+
+    try {
+        let response = await fetch(speciesUrl);
+        let speciesData = await response.json();
+
+        for (let index = 0; index < speciesData.names.length; index++) {
+            let nameEntry = speciesData.names[index];
+            let language = nameEntry.language.name;
+            if (names[language] !== undefined) names[language] = nameEntry.name;
+        }
+    } catch (error) {
+        console.warn("Übersetzte Pokémon-Namen konnten nicht geladen werden.", error);
+    }
+
+    return names;
 }
 
 /*
@@ -101,7 +132,7 @@ async function loadType(path="") {
 2. Rechnet Grösse und Gewicht in m und kg um und formatiert es auf eine Nachkommastelle um.
 3. Sammelt alle Typen aus data.type und gibt es mit / dazwischen zurück.
 4. Liest Attack und Defense aus data.stats, rechnet sie über topercent() in Balkenbreiten aus.*/
-function renderStats(data){
+function renderStats(data, pokemon){
     let statsBox = document.getElementById("fullImgStats");
 
     let heightMeter = (data.height / 10).toFixed(1);
@@ -111,7 +142,7 @@ function renderStats(data){
     for (let index = 0; index < data.types.length; index++) {
         let typeObject = data.types[index];
         let name = typeObject.type.name;
-        typeNames.push(name);
+        typeNames.push(translateType(name));
     }
     let typesText = typeNames.join(" / ");
 
@@ -121,7 +152,8 @@ function renderStats(data){
     let attackPercent = toPercent(attack);
     let defensePercent = toPercent(defense);
 
-    statsBox.innerHTML = renderStatsTemplate(data, heightMeter, weightKg, typesText, attack, defense, attackPercent, defensePercent);
+    let pokemonName = getPokemonName(pokemon);
+    statsBox.innerHTML = renderStatsTemplate(data, pokemonName, heightMeter, weightKg, typesText, attack, defense, attackPercent, defensePercent);
 }
 
 /*
@@ -201,7 +233,11 @@ function filterAndShowPokemons(filterWord){
         return;
     }
     hideMinLettersHint();
-    currentPokemons = ALLPOKEMON.filter(pokemon => pokemon.name.toLowerCase().includes(filterWord));
+    let normalizedFilter = normalizeSearchText(filterWord);
+    currentPokemons = ALLPOKEMON.filter(pokemon => {
+        let names = pokemon.names ? Object.values(pokemon.names) : [pokemon.name];
+        return names.some(name => normalizeSearchText(name).includes(normalizedFilter));
+    });
     renderPokemon(); hideLoadMore();
     if(currentPokemons.length === 0){ showNotFound();
     } else{ hideNotFound();
@@ -260,6 +296,89 @@ function closeFullImg(){
 1. Macht den ersten Bustaben gross.*/
 function capitalize(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+/*
+1. Liest die zuletzt ausgewählte Sprache aus dem localStorage.
+2. Setzt die gespeicherte Sprache, wenn sie vorhanden ist.
+3. Aktualisiert die Sprachauswahl und alle Texte auf der Seite.*/
+function initializeLanguage() {
+    let savedLanguage = localStorage.getItem("pokedexLanguage");
+    if (TRANSLATIONS[savedLanguage]) currentLanguage = savedLanguage;
+    document.getElementById("languageSelect").value = currentLanguage;
+    updateInterfaceTexts();
+}
+
+/*
+1. Prüft, ob die ausgewählte Sprache vorhanden ist.
+2. Speichert die neue Sprache im localStorage und aktualisiert die Seite.
+3. Wenn der Detaildialog geöffnet ist, werden auch dort Name, Typen und Texte neu gerendert.*/
+function changeLanguage(language) {
+    if (!TRANSLATIONS[language]) return;
+    currentLanguage = language;
+    localStorage.setItem("pokedexLanguage", currentLanguage);
+    updateInterfaceTexts();
+    renderPokemon();
+
+    if (currentPokemonDetails && fullImgBox.style.display === "flex") {
+        fullImg.alt = getPokemonName(currentPokemons[currentPkm]);
+        renderDialogTypeIcons(currentPokemonDetails);
+        renderStats(currentPokemonDetails, currentPokemons[currentPkm]);
+    }
+}
+
+/*
+1. Setzt das lang-Attribut der Seite auf die aktuelle Sprache.
+2. Übersetzt die Suche, Hinweise, Buttons und Alternativtexte.
+3. Aktualisiert die Beschriftungen für die Sprachauswahl und Navigation.*/
+function updateInterfaceTexts() {
+    document.documentElement.lang = currentLanguage;
+    searchInput.placeholder = translate("searchPlaceholder");
+    searchInput.setAttribute("aria-label", translate("searchPlaceholder"));
+    document.getElementById("search_btn").textContent = translate("search");
+    document.getElementById("min_letters_hint").textContent = translate("minLetters");
+    document.getElementById("notFoundMessage").textContent = translate("notFound");
+    document.getElementById("loadMoreText").textContent = translate("loadMore");
+    document.getElementById("spinnerImg").alt = translate("loading");
+
+    let languageSelect = document.getElementById("languageSelect");
+    languageSelect.setAttribute("aria-label", translate("language"));
+    document.querySelector(".nav_btn.left").setAttribute("aria-label", translate("previous"));
+    document.querySelector(".nav_btn.right").setAttribute("aria-label", translate("next"));
+}
+
+/*
+1. Holt einen Text über seinen Schlüssel aus der aktuell ausgewählten Sprache.*/
+function translate(key) {
+    return TRANSLATIONS[currentLanguage][key];
+}
+
+/*
+1. Übersetzt einen Pokemon-Typ in die aktuell ausgewählte Sprache.
+2. Wenn keine Übersetzung vorhanden ist, wird der englische Typ angezeigt.*/
+function translateType(typeName) {
+    return TRANSLATIONS[currentLanguage].types[typeName] || capitalize(typeName);
+}
+
+/*
+1. Holt den Pokemon-Namen in der aktuell ausgewählten Sprache.
+2. Wenn kein übersetzter Name vorhanden ist, wird der englische Name verwendet.
+3. Gibt den Namen mit einem grossen Anfangsbuchstaben zurück.*/
+function getPokemonName(pokemon) {
+    let name = pokemon.names && pokemon.names[currentLanguage]
+        ? pokemon.names[currentLanguage]
+        : pokemon.name;
+    return capitalize(name);
+}
+
+/*
+1. Wandelt einen Suchtext in Kleinbuchstaben um.
+2. Entfernt Akzente, damit Namen auch ohne Sonderzeichen gefunden werden können.*/
+function normalizeSearchText(text) {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 }
 
 /*

@@ -18,7 +18,18 @@
     <div class="header">
       <div class="contentbegrenzung_header">
         <img src="./assets/icons/pokeball.png" alt="" />
-        <span class="logo_text">Pokédex</span>
+        <span class="logo_text">Pok&eacute;dex</span>
+        <select
+          id="languageSelect"
+          class="language_select"
+          onchange="changeLanguage(this.value)"
+          aria-label="Sprache auswählen"
+        >
+          <option value="de">DE</option>
+          <option value="en">EN</option>
+          <option value="fr">FR</option>
+          <option value="it">IT</option>
+        </select>
           <div class="searchbar">
             <div class="search_area">
               <input
@@ -45,17 +56,17 @@
       </div>
       <div id="loadMoreBtn" class="load_more" onclick="loadMorebtn()">
         <img id="loadMoreImg" src="./assets/img/load_more_img.png" alt="">
-        <p>Load more...</p>
+        <p id="loadMoreText">Load more...</p>
       </div>
     </div>
 
     <div id="fullImgBox" onclick="backgroundClick(event)">
       <div class="dialog_box">
-        <button class="nav_btn left" onclick="prevPokemon(event)">❮</button>
+        <button class="nav_btn left" onclick="prevPokemon(event)" aria-label="Vorheriges Pokémon">❮</button>
 
         <img id="fullImg" alt="" />
 
-        <button class="nav_btn right" onclick="nextPokemon(event)">❯</button>
+        <button class="nav_btn right" onclick="nextPokemon(event)" aria-label="Nächstes Pokémon">❯</button>
         <div id="dialogTypeIcons" class="dialog_box_type_icons"></div>
         <div id="fullImgStats" class="dialog_box_stats"></div>
       </div>
@@ -65,6 +76,7 @@
       <span>2025 Developer Akademie GmbH</span>
     </div>
 
+    <script src="scripts/translations.js"></script>
     <script src="script.js"></script>
     <script src="scripts/template.js"></script>
   </body>
