@@ -56,27 +56,30 @@ function renderDialogTypeIconsTemplate(typeName){
 
 function renderTypeIconsTemplate(typeName) {
     return `
-            <img
-                class="type_icon"
-                src="${img_element + typeName}.png"
-                alt="${typeName}"
-                title="${typeName}"
-            />
+            <span class="type_badge type_${typeName}">
+                <img
+                    class="type_icon"
+                    src="${img_element + typeName}.png"
+                    alt=""
+                />
+                ${capitalize(typeName)}
+            </span>
         `;
 }
 
 function renderPokemonCardsTemplates(index, pokemon, pokemonIndex, typeName){
     return `
-            <div class="pokemon_card">
+            <article class="pokemon_card bg_${typeName}" onclick="openFullImg(${index})">
                 <div class="pokemon_name">
-                    <h2>#${pokemonIndex} ${capitalize(pokemon.name)}</h2>
+                    <span>#${String(pokemonIndex).padStart(3, "0")}</span>
+                    <h2>${capitalize(pokemon.name)}</h2>
                 </div>
-                <div class="pokemon_img" onclick="openFullImg(${index})">
-                    <img class="bg_${typeName}" src="${img_font + pokemonIndex}.png" alt="${pokemon.name}"/>
+                <div class="pokemon_img">
+                    <img src="${img_font + pokemonIndex}.png" alt="${capitalize(pokemon.name)}"/>
                 </div>
                 <div class="pokemon_elements">
                     ${renderTypeIcons(pokemon)}
                 </div>
-            </div>
+            </article>
             `;
 }

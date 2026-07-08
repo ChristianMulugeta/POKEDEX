@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Pokédex</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="style/assets.css" />
     <link rel="stylesheet" href="style/colors.css" />
@@ -12,19 +12,20 @@
   <body onload="onloadFunc()">
 
     <div id="loadingSpinner">
-      <img id="spinnerImg" src="./assets/img/load_more_img.png" alt="Loading..."></img>
+      <img id="spinnerImg" src="./assets/img/load_more_img.png" alt="Pokémon werden geladen">
     </div>
 
     <div class="header">
       <div class="contentbegrenzung_header">
         <img src="./assets/icons/pokeball.png" alt="" />
-        <span>Pokedex</span>
+        <span class="logo_text">Pokédex</span>
           <div class="searchbar">
             <div class="search_area">
               <input
                 id="searchInput"
                 type="text"
-                placeholder="Search Pokemon..."
+                placeholder="Pokémon suchen..."
+                aria-label="Pokémon suchen"
               />
               <button id="search_btn" onclick="filterAndShowPokemons(document.getElementById('searchInput').value)">
                 Search

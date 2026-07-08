@@ -1,54 +1,73 @@
 .bg_normal {
-background-color:#A8A878;
+background: linear-gradient(145deg, #4f5535, #242a20);
 }
 .bg_fire{
-background-color:#f04d30da;
+background: linear-gradient(145deg, #9b271e, #3e1721);
 } 
 .bg_water{
-background-color:#6890F0;
+background: linear-gradient(145deg, #18569a, #102b58);
 }
 .bg_electric{
-background-color:#F8D030;
+background: linear-gradient(145deg, #aa8410, #443918);
 }
 .bg_grass{
-background-color:#78C850;
+background: linear-gradient(145deg, #235d38, #122d25);
 }
 .bg_ice{
-background-color:#98D8D8;
+background: linear-gradient(145deg, #39868e, #193d50);
 }
 .bg_fighting{
-background-color:#C03028;
+background: linear-gradient(145deg, #84322d, #361b22);
 }
 .bg_poison{
-background-color:#A040A0;
+background: linear-gradient(145deg, #743d88, #321d4a);
 }
 .bg_ground{
-background-color:#E0C068;
+background: linear-gradient(145deg, #9a7131, #49351f);
 }
 .bg_flying{
-background-color:#A890F0;
+background: linear-gradient(145deg, #546fb5, #28365e);
 }
 .bg_psychic{
-background-color:#F85888;
+background: linear-gradient(145deg, #a73564, #4d1d45);
 }
 .bg_bug{
-background-color:#A8B820;
+background: linear-gradient(145deg, #60751d, #2d3b19);
 }
 .bg_rock{
-background-color:#B8A038;
+background: linear-gradient(145deg, #76682b, #38331e);
 }
 .bg_ghost{
-background-color:#705898;
+background: linear-gradient(145deg, #50406f, #28233e);
 }
 .bg_dragon{
-background-color:#7038F8;
+background: linear-gradient(145deg, #5132a8, #272052);
 }
 .bg_dark{
-background-color:#705848;
+background: linear-gradient(145deg, #463b37, #242125);
 }
 .bg_steel{
-background-color:#B8B8D0;
+background: linear-gradient(145deg, #596775, #29333e);
 }
 .bg_fairy{
-background-color:#EE99AC;
+background: linear-gradient(145deg, #a45273, #4b2945);
 }
+
+.type_normal { background: #73735a; }
+.type_fire { background: #d94724; }
+.type_water { background: #1871d1; }
+.type_electric { background: #c69d16; }
+.type_grass { background: #31862e; }
+.type_ice { background: #3b929c; }
+.type_fighting { background: #a23c35; }
+.type_poison { background: #7d3ca0; }
+.type_ground { background: #a17431; }
+.type_flying { background: #5574bd; }
+.type_psychic { background: #be3e70; }
+.type_bug { background: #728720; }
+.type_rock { background: #7e6c2e; }
+.type_ghost { background: #594679; }
+.type_dragon { background: #5734b7; }
+.type_dark { background: #51443e; }
+.type_steel { background: #647481; }
+.type_fairy { background: #b55e81; }
