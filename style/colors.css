@@ -1,56 +1,74 @@
 .bg_normal {
-background: linear-gradient(145deg, #4f5535, #242a20);
+background: radial-gradient(circle at 50% 48%, #575c3b, transparent 55%), linear-gradient(145deg, #42472f, #1d231e);
+border-color: rgba(168, 168, 120, 0.55);
 }
 .bg_fire{
-background: linear-gradient(145deg, #9b271e, #3e1721);
+background: radial-gradient(circle at 50% 52%, #a82d1c, transparent 58%), linear-gradient(145deg, #7e201c, #35151e);
+border-color: rgba(240, 77, 48, 0.58);
 } 
 .bg_water{
-background: linear-gradient(145deg, #18569a, #102b58);
+background: radial-gradient(circle at 50% 48%, #1b64a9, transparent 58%), linear-gradient(145deg, #12457f, #0c254e);
+border-color: rgba(74, 144, 240, 0.62);
 }
 .bg_electric{
-background: linear-gradient(145deg, #aa8410, #443918);
+background: radial-gradient(circle at 50% 48%, #b38b17, transparent 58%), linear-gradient(145deg, #84650d, #3d3216);
+border-color: rgba(248, 208, 48, 0.58);
 }
 .bg_grass{
-background: linear-gradient(145deg, #235d38, #122d25);
+background: radial-gradient(circle at 50% 48%, #23623b, transparent 60%), linear-gradient(145deg, #16452e, #102a22);
+border-color: rgba(74, 160, 83, 0.58);
 }
 .bg_ice{
-background: linear-gradient(145deg, #39868e, #193d50);
+background: radial-gradient(circle at 50% 48%, #3d919a, transparent 58%), linear-gradient(145deg, #286e7a, #17394b);
+border-color: rgba(152, 216, 216, 0.58);
 }
 .bg_fighting{
 background: linear-gradient(145deg, #84322d, #361b22);
+border-color: rgba(192, 48, 40, 0.58);
 }
 .bg_poison{
-background: linear-gradient(145deg, #743d88, #321d4a);
+background: radial-gradient(circle at 50% 48%, #824799, transparent 58%), linear-gradient(145deg, #603376, #2b1943);
+border-color: rgba(160, 64, 160, 0.58);
 }
 .bg_ground{
 background: linear-gradient(145deg, #9a7131, #49351f);
+border-color: rgba(224, 192, 104, 0.58);
 }
 .bg_flying{
-background: linear-gradient(145deg, #546fb5, #28365e);
+background: radial-gradient(circle at 50% 48%, #607dc5, transparent 58%), linear-gradient(145deg, #445f9f, #253257);
+border-color: rgba(168, 144, 240, 0.58);
 }
 .bg_psychic{
 background: linear-gradient(145deg, #a73564, #4d1d45);
+border-color: rgba(248, 88, 136, 0.58);
 }
 .bg_bug{
 background: linear-gradient(145deg, #60751d, #2d3b19);
+border-color: rgba(168, 184, 32, 0.58);
 }
 .bg_rock{
 background: linear-gradient(145deg, #76682b, #38331e);
+border-color: rgba(184, 160, 56, 0.58);
 }
 .bg_ghost{
 background: linear-gradient(145deg, #50406f, #28233e);
+border-color: rgba(112, 88, 152, 0.58);
 }
 .bg_dragon{
 background: linear-gradient(145deg, #5132a8, #272052);
+border-color: rgba(112, 56, 248, 0.58);
 }
 .bg_dark{
 background: linear-gradient(145deg, #463b37, #242125);
+border-color: rgba(112, 88, 72, 0.58);
 }
 .bg_steel{
 background: linear-gradient(145deg, #596775, #29333e);
+border-color: rgba(184, 184, 208, 0.58);
 }
 .bg_fairy{
 background: linear-gradient(145deg, #a45273, #4b2945);
+border-color: rgba(238, 153, 172, 0.58);
 }
 
 .type_normal { background: #73735a; }

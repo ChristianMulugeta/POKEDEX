@@ -12,7 +12,7 @@ body {
   display: flex;
   flex-direction: column;
   color: #ffffff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 }
 
 body.no-scroll {
@@ -27,13 +27,14 @@ body.no-scroll {
   display: flex;
   align-items: center;
   background: rgba(5, 8, 22, 0.96);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
 .contentbegrenzung_header {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1180px;
   margin: auto;
   padding: 10px 24px;
   display: flex;
@@ -44,7 +45,7 @@ body.no-scroll {
 .logo_text {
   font-size: clamp(23px, 3vw, 30px);
   font-weight: 800;
-  letter-spacing: -1px;
+  letter-spacing: -0.8px;
 }
 
 .language_select {
@@ -55,7 +56,7 @@ body.no-scroll {
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  background: #090e20;
+  background: #080d1d;
   border: 1px solid #29314b;
   border-radius: 10px;
   outline: none;
@@ -74,18 +75,46 @@ body.no-scroll {
 }
 
 .search_area {
+  position: relative;
   display: flex;
   gap: 12px;
+}
+
+.search_area::before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 17px;
+  z-index: 1;
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+  border: 2px solid #9ca3b8;
+  border-radius: 50%;
+}
+
+.search_area::after {
+  content: "";
+  position: absolute;
+  top: 27px;
+  left: 30px;
+  z-index: 1;
+  width: 7px;
+  height: 2px;
+  pointer-events: none;
+  background: #9ca3b8;
+  border-radius: 2px;
+  transform: rotate(45deg);
 }
 
 .header input {
   width: clamp(190px, 28vw, 340px);
   height: 44px;
-  padding: 0 18px;
+  padding: 0 18px 0 46px;
   color: white;
   font-size: 15px;
-  background: #090e20;
-  border: 1px solid #29314b;
+  background: #080d1d;
+  border: 1px solid #252d46;
   border-radius: 12px;
   outline: none;
   transition: border-color 180ms ease, box-shadow 180ms ease;
@@ -107,7 +136,7 @@ body.no-scroll {
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  background: linear-gradient(135deg, #2374e8, #1045bb);
+  background: linear-gradient(135deg, #1768dc, #1147bd);
   border: 0;
   border-radius: 12px;
   transition: transform 180ms ease, filter 180ms ease;
@@ -125,41 +154,68 @@ body.no-scroll {
 }
 
 .main_container {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-image:
-    linear-gradient(rgba(4, 7, 25, 0.88), rgba(7, 11, 33, 0.94)),
+    radial-gradient(circle at 50% 20%, rgba(20, 30, 92, 0.28), transparent 48%),
+    linear-gradient(rgba(3, 6, 24, 0.94), rgba(5, 9, 30, 0.97)),
     url("./assets/img/background_1.png");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
 
+.main_container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url("./assets/icons/pokeball.png") 18px 34px / 142px 142px repeat;
+  filter: grayscale(1);
+  opacity: 0.025;
+}
+
 .pokemon_gallerie {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1100px;
   margin: 0;
-  padding: 34px 24px;
+  padding: 28px 24px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 28px;
+  column-gap: 28px;
+  row-gap: 28px;
 }
 
 .pokemon_card {
   position: relative;
   min-width: 0;
-  min-height: 330px;
-  padding: 18px;
+  min-height: 310px;
+  padding: 16px 18px 14px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
   transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.pokemon_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 35%, rgba(255, 255, 255, 0.13) 0 2px, transparent 3px),
+    radial-gradient(circle at 78% 62%, rgba(255, 255, 255, 0.12) 0 3px, transparent 4px),
+    radial-gradient(circle at 38% 78%, rgba(255, 255, 255, 0.1) 0 2px, transparent 3px);
+  opacity: 0.55;
 }
 
 .pokemon_card::after {
@@ -167,8 +223,8 @@ body.no-scroll {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 28px;
-  height: 28px;
+  width: 25px;
+  height: 25px;
   background: url("./assets/icons/pokeball.png") center / contain no-repeat;
   opacity: 0.24;
 }
@@ -176,8 +232,11 @@ body.no-scroll {
 .pokemon_card:hover {
   z-index: 1;
   transform: translateY(-7px);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 20px 38px rgba(0, 0, 0, 0.42);
+  border-color: #ff5c91;
+  box-shadow:
+    0 0 0 1px rgba(255, 92, 145, 0.45),
+    0 0 22px rgba(255, 55, 120, 0.48),
+    0 20px 38px rgba(0, 0, 0, 0.42);
 }
 
 .pokemon_name {
@@ -187,13 +246,14 @@ body.no-scroll {
 
 .pokemon_name span {
   color: rgba(255, 255, 255, 0.65);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .pokemon_name h2 {
   margin: 4px 0 0;
-  font-size: 22px;
+  font-size: 19px;
+  font-weight: 750;
   line-height: 1.2;
 }
 
@@ -201,7 +261,7 @@ body.no-scroll {
   position: relative;
   z-index: 1;
   flex: 1;
-  min-height: 210px;
+  min-height: 190px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -209,9 +269,9 @@ body.no-scroll {
 
 .pokemon_img img {
   width: 100%;
-  height: 220px;
+  height: 202px;
   object-fit: contain;
-  filter: drop-shadow(0 14px 9px rgba(0, 0, 0, 0.38));
+  filter: drop-shadow(0 14px 10px rgba(0, 0, 0, 0.42));
   transition: transform 200ms ease;
 }
 
@@ -230,16 +290,23 @@ body.no-scroll {
 }
 
 .type_badge {
-  padding: 7px 12px;
+  padding: 6px 12px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   color: white;
   font-size: 13px;
   font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
+}
+
+.pokemon_card:focus-visible,
+#search_btn:focus-visible,
+.load_more:focus-visible {
+  outline: 3px solid rgba(96, 165, 250, 0.85);
+  outline-offset: 3px;
 }
 
 .type_badge .type_icon {
@@ -387,12 +454,14 @@ body.no-scroll {
 @media (max-width: 1050px) {
   .pokemon_gallerie {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 850px;
   }
 }
 
 @media (max-width: 780px) {
   .pokemon_gallerie {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 590px;
   }
 }
 
