@@ -451,3 +451,6 @@ function showNotFound(){
 function hideNotFound(){
     document.getElementById("notFoundMessage").style.display= "none";
 }
+
+
+// Lightmode and Darkmode functions
