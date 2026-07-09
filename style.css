@@ -3,7 +3,8 @@
 }
 
 html {
-  background: #070b21;
+  min-height: 100%;
+  background: #020617;
 }
 
 body {
@@ -13,6 +14,13 @@ body {
   flex-direction: column;
   color: #ffffff;
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at 0% 10%, rgba(20, 95, 210, 0.42), transparent 26%),
+    radial-gradient(circle at 104% 10%, rgba(93, 53, 177, 0.34), transparent 26%),
+    radial-gradient(circle at 108% 96%, rgba(94, 37, 180, 0.36), transparent 28%),
+    radial-gradient(circle at 50% 35%, rgba(14, 165, 233, 0.08), transparent 34%),
+    #020617;
+  background-attachment: fixed;
 }
 
 body.no-scroll {
@@ -159,13 +167,7 @@ body.no-scroll {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image:
-    radial-gradient(circle at 50% 20%, rgba(20, 30, 92, 0.28), transparent 48%),
-    linear-gradient(rgba(3, 6, 24, 0.94), rgba(5, 9, 30, 0.97)),
-    url("./assets/img/background_1.png");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: transparent;
 }
 
 .main_container::before {
@@ -173,9 +175,12 @@ body.no-scroll {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: url("./assets/icons/pokeball.png") 18px 34px / 142px 142px repeat;
-  filter: grayscale(1);
-  opacity: 0.025;
+  background:
+    radial-gradient(circle at 0 8%, rgba(30, 64, 175, 0.3), transparent 18%),
+    radial-gradient(circle at 100% 92%, rgba(91, 33, 182, 0.35), transparent 20%),
+    radial-gradient(circle, rgba(59, 130, 246, 0.18) 1px, transparent 1px);
+  background-size: auto, auto, 10px 10px;
+  opacity: 0.35;
 }
 
 .pokemon_gallerie {
@@ -225,7 +230,7 @@ body.no-scroll {
   right: 16px;
   width: 25px;
   height: 25px;
-  background: url("./assets/icons/pokeball.png") center / contain no-repeat;
+  background: url("./assets/img/pokeball.png") center / contain no-repeat;
   opacity: 0.24;
 }
 
